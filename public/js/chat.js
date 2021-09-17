@@ -55,13 +55,19 @@ $messageForm.addEventListener('submit', (event) => {
     // disable the submit button
     $messageFormBtn.setAttribute('disabled', 'disabled')
 
-    if (message !== '')
+    if (message !== '') {
     socket.emit('sendMessage', message, (status) => {
+            // enable the form to send a new message
+            $messageFormBtn.removeAttribute('disabled')
+            $messageFormInput.value = ''
+            $messageFormInput.focus()
+        })
+    } else {
         // enable the form to send a new message
         $messageFormBtn.removeAttribute('disabled')
         $messageFormInput.value = ''
         $messageFormInput.focus()
-    })
+    }
 })
 
 $showLocationBtn.addEventListener('click', () => {
